@@ -38,11 +38,15 @@ export default function Home() {
           solutions that create real-world impact.
         </p>
         <div className="flex justify-center gap-4 mb-12">
-          <Button asChild>
-            <a href="/Dev_Modi_Resume_4.5.pdf" download>
-              <FileText className="h-4 w-4 mr-2" /> Download Resume
-            </a>
-          </Button>
+          <motion.a
+            whileHover={{ scale: 1.1 }} // Slight scale-up effect
+            whileTap={{ scale: 0.95 }} // Slight shrink on click
+            href="/Dev_Modi_Resume.pdf"
+            download // Corrected file path
+            className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full shadow-md hover:shadow-purple-500/50 transition-all duration-300"
+          >
+            <FileText className="h-5 w-5" /> Download Resume
+          </motion.a>
 
           {/* Animated Contact Me Button */}
           <motion.a
