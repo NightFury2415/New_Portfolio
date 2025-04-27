@@ -60,6 +60,140 @@
 
 /* Subtle glow effects */
 .hover\:shadow-lg:hover {
-  box-shadow: 0 10px 15px -3px rgba(var(--primary), 0.1), 0 4px 6px -2px rgba(var(--primary), 0.05);
+  box-shadow: 0 10px 15px -3px rgba(var(--primary), 0.1),
+    0 4px 6px -2px rgba(var(--primary), 0.05);
 }
 
+/* Twinkling Stars Animation */
+@keyframes twinkle {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* Create random stars (particles) */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: #fff;
+  animation: twinkle 3s infinite ease-in-out;
+  pointer-events: none; /* Ensure they don't block content interaction */
+}
+
+/* Star particles animation */
+@keyframes randomMovement {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, 10px);
+  }
+  100% {
+    transform: translate(-10px, -15px);
+  }
+}
+
+.star:nth-child(odd) {
+  animation: randomMovement 5s infinite ease-in-out;
+}
+
+.star:nth-child(even) {
+  animation: randomMovement 7s infinite ease-in-out;
+}
+
+/* Container with random stars */
+.bg-particle-stars {
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+}
+
+/* Add dynamic stars that appear in random positions */
+.bg-particle-stars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bg-particle-stars .star {
+  top: 50%;
+  left: 50%;
+  /* Randomize star positions */
+  animation: twinkle 3s infinite ease-in-out,
+    randomMovement 5s infinite ease-in-out;
+}
+
+/* Timeline Container */
+.timeline-container {
+  position: relative;
+  padding-left: 30px; /* Add space for the dots */
+  margin-bottom: 30px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 40px; /* Add space for the dots */
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 15px; /* Positioning the vertical line */
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #00bcd4; /* Vertical line color */
+  z-index: 1;
+}
+
+.timeline-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #00bcd4; /* Dot color */
+  z-index: 2;
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+  left: -20px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+  left: calc(100% + 20px);
+}
+
+.timeline-item-content {
+  position: relative;
+  z-index: 3;
+}
+
+.timeline-dot.animate {
+  animation: moveIn 0.5s ease-in-out;
+}
+
+@keyframes moveIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

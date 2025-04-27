@@ -1,37 +1,25 @@
-import type React from "react";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from "next";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
-  title: "Dev Modi | Software Engineer | Full Stack & Game Developer",
-  description:
-    "Explore the professional portfolio of Dev Modi, a versatile Software Engineer skilled in Full Stack Development, Game Development, and AI solutions, committed to creating impactful digital experiences.",
-  generator: "v0.dev",
+  title: "Dev Modi | Portfolio",
+  description: "Official Portfolio of Dev Modi",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+    <html lang="en">
+      <body className="bg-black text-white">
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
 }
-
-import "./globals.css";
