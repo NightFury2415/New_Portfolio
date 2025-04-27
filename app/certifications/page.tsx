@@ -13,16 +13,18 @@ const certifications = [
 export default function Certifications() {
   return (
     <div className="min-h-screen bg-black text-white py-16">
+      {/* Animated Title */}
       <motion.h1
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-5xl font-extrabold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500"
+        className="text-5xl font-extrabold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 pt-8 pb-4"
       >
         Certifications
       </motion.h1>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto px-4">
+      {/* Certifications Grid with Glow Effects */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {certifications.map((cert, idx) => (
           <motion.div
             key={idx}
@@ -30,9 +32,11 @@ export default function Certifications() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="p-6 rounded-xl bg-gradient-to-br from-[#0f172a] via-[#0a192f] to-[#0f172a] border border-purple-500/30 shadow-lg hover:scale-105 hover:shadow-purple-500/40 transition-all duration-300"
+            className="flex justify-center"
           >
-            <p className="text-muted-foreground text-center">{cert}</p>
+            <div className="p-8 rounded-xl bg-gradient-to-br from-[#0f172a] via-[#0a192f] to-[#0f172a] text-center border border-purple-500/30 shadow-lg hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
+              <p className="text-lg font-semibold text-cyan-400">{cert}</p>
+            </div>
           </motion.div>
         ))}
       </div>
