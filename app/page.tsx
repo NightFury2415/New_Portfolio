@@ -96,38 +96,6 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Header/Nav */}
-        <header className="container mx-auto px-6 py-6 flex justify-between items-center">
-          <div className="text-2xl font-bold">
-            <span className="text-gradient">DM</span>
-          </div>
-          <nav className="hidden md:flex gap-8">
-            <Link
-              href="#about"
-              className="hover:text-purple-400 transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="#projects"
-              className="hover:text-purple-400 transition-colors"
-            >
-              Projects
-            </Link>
-            <Link
-              href="#skills"
-              className="hover:text-purple-400 transition-colors"
-            >
-              Skills
-            </Link>
-            <Link
-              href="#contact"
-              className="hover:text-purple-400 transition-colors"
-            >
-              Contact
-            </Link>
-          </nav>
-        </header>
 
         {/* Hero Section */}
         <main className="container mx-auto px-6 py-20 text-center relative z-10">
