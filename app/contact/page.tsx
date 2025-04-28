@@ -267,21 +267,21 @@ export default function Contact() {
               </motion.a>
             </div>
 
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 space-y-3">
-              <h3 className="text-xl font-semibold">Office Hours</h3>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                <li className="flex justify-between">
-                  <span>Monday - Friday</span>
-                  <span className="font-semibold">9:00 AM - 5:00 PM</span>
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 space-y-4">
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+                Fun Facts
+              </h3>
+              <ul className="space-y-3 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+                <li>🎮 Gamer at heart — love FPS and story games</li>
+                <li>✈️ Dream to travel the world — Japan and Iceland first!</li>
+                <li>☕ Coffee over tea. Anytime. Every time.</li>
+                <li>
+                  🧠 Always learning — currently obsessed with AI and Web3
                 </li>
-                <li className="flex justify-between">
-                  <span>Saturday</span>
-                  <span className="font-semibold">By Appointment</span>
+                <li>
+                  🎵 Spotify always running — from EDM to Lo-Fi coding beats
                 </li>
-                <li className="flex justify-between">
-                  <span>Sunday</span>
-                  <span className="font-semibold">Closed</span>
-                </li>
+                <li>🌙 Most productive after midnight (Team No Sleep 😅)</li>
               </ul>
             </div>
           </motion.div>
