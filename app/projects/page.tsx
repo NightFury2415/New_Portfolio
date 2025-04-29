@@ -29,7 +29,7 @@ const localProjects: LocalProject[] = [
       "Machine learning model with 65% accuracy for predicting stock market trends. Built with a Django backend and React frontend.",
     skills: ["Python", "TensorFlow", "React", "Django", "Data Science"],
     link: "#",
-    image: "/api/placeholder/800/450",
+    image: "/images/stock-predictor.png",
     year: 2024,
   },
   {
@@ -38,7 +38,7 @@ const localProjects: LocalProject[] = [
       "Atmospheric first-person horror game developed in Unity and C#. Features dynamic lighting, AI-driven enemies, and immersive sound design.",
     skills: ["Unity", "C#", "Game Design", "3D Modeling"],
     link: "#",
-    image: "/api/placeholder/800/450",
+    image: "/images/butcher-game.png",
     year: 2023,
   },
   {
@@ -47,7 +47,7 @@ const localProjects: LocalProject[] = [
       "Automated system that scraped 10,000+ job listings and uses NLP to create a personalized job search assistant chatbot.",
     skills: ["Python", "Django", "Selenium", "NLP", "AI"],
     link: "#",
-    image: "/api/placeholder/800/450",
+    image: "/images/job-chatbot.png",
     year: 2022,
   },
   {
@@ -56,7 +56,7 @@ const localProjects: LocalProject[] = [
       "Web app that helps users find the safest walking routes between two points in San Francisco. Integrates local crime data and real-time alerts near the user's location.",
     skills: ["React", "Leaflet.js", "Node.js", "REST APIs", "Geolocation"],
     link: "#",
-    image: "/api/placeholder/800/450",
+    image: "/images/safewalk.png",
     year: 2025,
   },
 ];
@@ -371,7 +371,7 @@ export default function Projects() {
                     whileHover={{ y: -10, transition: { duration: 0.3 } }}
                     className="group rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden shadow-xl hover:shadow-purple-500/20 transition-all duration-500 border border-gray-800 hover:border-purple-500/30"
                   >
-                    <div className="h-44 overflow-hidden relative">
+                    <div className="h-84 overflow-hidden relative">
                       <img
                         src={localProject.image}
                         alt={localProject.title}
