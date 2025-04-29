@@ -47,7 +47,16 @@ const localProjects: LocalProject[] = [
     image: "/api/placeholder/800/450",
     year: 2022
   },
+  {
+    title: "Safe Walk",
+    description: "Web app that helps users find the safest walking routes between two points in San Francisco. Integrates local crime data and real-time alerts near the user's location.",
+    skills: ["React", "Leaflet.js", "Node.js", "REST APIs", "Geolocation"],
+    link: "#",
+    image: "/api/placeholder/800/450",
+    year: 2024
+  }
 ];
+
 
 export default function Projects() {
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
