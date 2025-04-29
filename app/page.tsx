@@ -96,7 +96,6 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-10">
-
         {/* Hero Section */}
         <main className="container mx-auto px-6 py-20 text-center relative z-10">
           <motion.div
@@ -274,12 +273,6 @@ export default function Home() {
             </div>
           </section>
         </main>
-
-        {/* Footer */}
-        <footer className="container mx-auto px-6 py-8 mt-20 border-t border-gray-800 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} Dev Modi. All rights reserved.</p>
-          <p className="mt-2">Made with passion and code.</p>
-        </footer>
       </div>
 
       {/* Global Styles */}
