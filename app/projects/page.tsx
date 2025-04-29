@@ -25,38 +25,41 @@ interface LocalProject {
 const localProjects: LocalProject[] = [
   {
     title: "AI Powered Stock Predictor",
-    description: "Machine learning model with 65% accuracy for predicting stock market trends. Built with a Django backend and React frontend.",
+    description:
+      "Machine learning model with 65% accuracy for predicting stock market trends. Built with a Django backend and React frontend.",
     skills: ["Python", "TensorFlow", "React", "Django", "Data Science"],
     link: "#",
     image: "/api/placeholder/800/450",
-    year: 2024
+    year: 2024,
   },
   {
     title: "The Butcher Game",
-    description: "Atmospheric first-person horror game developed in Unity and C#. Features dynamic lighting, AI-driven enemies, and immersive sound design.",
+    description:
+      "Atmospheric first-person horror game developed in Unity and C#. Features dynamic lighting, AI-driven enemies, and immersive sound design.",
     skills: ["Unity", "C#", "Game Design", "3D Modeling"],
     link: "#",
     image: "/api/placeholder/800/450",
-    year: 2023
+    year: 2023,
   },
   {
     title: "Job Application Scraper & AI Chatbot",
-    description: "Automated system that scraped 10,000+ job listings and uses NLP to create a personalized job search assistant chatbot.",
+    description:
+      "Automated system that scraped 10,000+ job listings and uses NLP to create a personalized job search assistant chatbot.",
     skills: ["Python", "Django", "Selenium", "NLP", "AI"],
     link: "#",
     image: "/api/placeholder/800/450",
-    year: 2022
+    year: 2022,
   },
   {
     title: "Safe Walk",
-    description: "Web app that helps users find the safest walking routes between two points in San Francisco. Integrates local crime data and real-time alerts near the user's location.",
+    description:
+      "Web app that helps users find the safest walking routes between two points in San Francisco. Integrates local crime data and real-time alerts near the user's location.",
     skills: ["React", "Leaflet.js", "Node.js", "REST APIs", "Geolocation"],
     link: "#",
     image: "/api/placeholder/800/450",
-    year: 2024
-  }
+    year: 2025,
+  },
 ];
-
 
 export default function Projects() {
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
@@ -65,8 +68,10 @@ export default function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
   const [yearFilter, setYearFilter] = useState<number | null>(null);
   const [availableYears, setAvailableYears] = useState<number[]>([]);
-  const [combinedProjects, setCombinedProjects] = useState<(LocalProject | GitHubRepo)[]>([]);
-  
+  const [combinedProjects, setCombinedProjects] = useState<
+    (LocalProject | GitHubRepo)[]
+  >([]);
+
   // Fetch GitHub repos
   useEffect(() => {
     async function fetchGitHubRepos(username: string, token?: string) {
@@ -87,9 +92,9 @@ export default function Projects() {
 
         const repos: GitHubRepo[] = await response.json();
         const filteredRepos = repos
-          .filter(repo => !repo.name.includes('private'))
+          .filter((repo) => !repo.name.includes("private"))
           .slice(0, 6);
-          
+
         setGithubRepos(filteredRepos);
         setIsLoading(false);
       } catch (error) {
@@ -105,25 +110,25 @@ export default function Projects() {
 
   // Combine projects and extract years for filtering
   useEffect(() => {
-    // Create a combined list of all projects 
+    // Create a combined list of all projects
     const allProjects = [
       ...localProjects,
-      ...githubRepos.map(repo => ({
+      ...githubRepos.map((repo) => ({
         ...repo,
-        year: new Date(repo.created_at).getFullYear()
-      }))
+        year: new Date(repo.created_at).getFullYear(),
+      })),
     ];
-    
+
     setCombinedProjects(allProjects);
-    
+
     // Extract all unique years for filtering
     const years = new Set<number>();
-    localProjects.forEach(project => years.add(project.year));
-    githubRepos.forEach(repo => {
+    localProjects.forEach((project) => years.add(project.year));
+    githubRepos.forEach((repo) => {
       const year = new Date(repo.created_at).getFullYear();
       years.add(year);
     });
-    
+
     setAvailableYears(Array.from(years).sort((a, b) => b - a)); // Sort years in descending order
   }, [githubRepos]);
 
@@ -136,31 +141,42 @@ export default function Projects() {
       transition: {
         delay: i * 0.1,
         duration: 0.5,
-        ease: "easeOut"
-      }
-    })
+        ease: "easeOut",
+      },
+    }),
   };
 
   // Filter projects based on search term and year
-  const filteredProjects = combinedProjects.filter(project => {
-    const title = 'title' in project ? project.title : formatRepoName(project.name);
-    const description = 'description' in project ? project.description : project.description || '';
-    const skills = 'skills' in project ? project.skills.join(' ') : (project.language || '') + ' ' + (project.topics?.join(' ') || '');
-    const year = 'year' in project ? project.year : new Date(project.created_at).getFullYear();
-    
-    const matchesSearch = searchTerm === '' || 
-      title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredProjects = combinedProjects.filter((project) => {
+    const title =
+      "title" in project ? project.title : formatRepoName(project.name);
+    const description =
+      "description" in project
+        ? project.description
+        : project.description || "";
+    const skills =
+      "skills" in project
+        ? project.skills.join(" ")
+        : (project.language || "") + " " + (project.topics?.join(" ") || "");
+    const year =
+      "year" in project
+        ? project.year
+        : new Date(project.created_at).getFullYear();
+
+    const matchesSearch =
+      searchTerm === "" ||
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       skills.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesYear = yearFilter === null || year === yearFilter;
-    
+
     return matchesSearch && matchesYear;
   });
 
   // Determine if a project is a local project or GitHub repo
   const isLocalProject = (project: any): project is LocalProject => {
-    return 'title' in project;
+    return "title" in project;
   };
 
   // Helper function to get project year
@@ -179,7 +195,10 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white py-24 px-4">
+    <section
+      id="projects"
+      className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white py-24 px-4"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header with fixed vertical spacing */}
         <div className="text-center mb-16">
@@ -192,8 +211,8 @@ export default function Projects() {
           >
             My Projects
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -206,7 +225,7 @@ export default function Projects() {
 
         {/* Search and Filter Controls */}
         <div className="mb-12">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -221,14 +240,19 @@ export default function Projects() {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-3 pl-10 rounded-lg bg-gray-800/70 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               />
-              <svg 
-                className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" 
-                xmlns="http://www.w3.org/2000/svg" 
-                fill="none" 
-                viewBox="0 0 24 24" 
+              <svg
+                className="absolute left-3 top-3.5 h-5 w-5 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </div>
 
@@ -236,17 +260,32 @@ export default function Projects() {
             <div className="relative w-full md:w-auto">
               <select
                 value={yearFilter || ""}
-                onChange={(e) => setYearFilter(e.target.value ? parseInt(e.target.value) : null)}
+                onChange={(e) =>
+                  setYearFilter(
+                    e.target.value ? parseInt(e.target.value) : null
+                  )
+                }
                 className="appearance-none w-full md:w-44 px-4 py-3 rounded-lg bg-gray-800/70 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               >
                 <option value="">All Years</option>
-                {availableYears.map(year => (
-                  <option key={year} value={year}>{year}</option>
+                {availableYears.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
                 ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-                <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
             </div>
@@ -301,13 +340,15 @@ export default function Projects() {
         <div className="text-center mb-8">
           {filteredProjects.length > 0 ? (
             <p className="text-gray-400">
-              Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
-              {yearFilter ? ` from ${yearFilter}` : ''}
-              {searchTerm ? ` matching "${searchTerm}"` : ''}
+              Showing {filteredProjects.length}{" "}
+              {filteredProjects.length === 1 ? "project" : "projects"}
+              {yearFilter ? ` from ${yearFilter}` : ""}
+              {searchTerm ? ` matching "${searchTerm}"` : ""}
             </p>
           ) : (
             <p className="text-gray-400">
-              No projects found{yearFilter ? ` from ${yearFilter}` : ''}{searchTerm ? ` matching "${searchTerm}"` : ''}
+              No projects found{yearFilter ? ` from ${yearFilter}` : ""}
+              {searchTerm ? ` matching "${searchTerm}"` : ""}
             </p>
           )}
         </div>
@@ -316,7 +357,7 @@ export default function Projects() {
         <div className={`${activeTab === "featured" ? "block" : "hidden"}`}>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects
-              .filter(project => isLocalProject(project))
+              .filter((project) => isLocalProject(project))
               .map((project, idx) => {
                 const localProject = project as LocalProject;
                 return (
@@ -331,9 +372,9 @@ export default function Projects() {
                     className="group rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden shadow-xl hover:shadow-purple-500/20 transition-all duration-500 border border-gray-800 hover:border-purple-500/30"
                   >
                     <div className="h-44 overflow-hidden relative">
-                      <img 
-                        src={localProject.image} 
-                        alt={localProject.title} 
+                      <img
+                        src={localProject.image}
+                        alt={localProject.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70"></div>
@@ -341,16 +382,16 @@ export default function Projects() {
                         {localProject.year}
                       </div>
                     </div>
-                    
+
                     <div className="p-6">
                       <h2 className="text-2xl font-bold text-purple-400 mb-3">
                         {localProject.title}
                       </h2>
-                      
+
                       <p className="text-gray-300 mb-5 text-sm">
                         {localProject.description}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-6">
                         {localProject.skills.map((skill, i) => (
                           <span
@@ -361,13 +402,22 @@ export default function Projects() {
                           </span>
                         ))}
                       </div>
-                      
-                      <button 
-                        className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 py-2 px-4 rounded-lg text-white text-sm font-medium transition-all hover:from-purple-700 hover:to-pink-700 hover:shadow-lg"
-                      >
+
+                      <button className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 py-2 px-4 rounded-lg text-white text-sm font-medium transition-all hover:from-purple-700 hover:to-pink-700 hover:shadow-lg">
                         View Details
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          />
                         </svg>
                       </button>
                     </div>
@@ -375,10 +425,13 @@ export default function Projects() {
                 );
               })}
           </div>
-          
-          {filteredProjects.filter(project => isLocalProject(project)).length === 0 && (
+
+          {filteredProjects.filter((project) => isLocalProject(project))
+            .length === 0 && (
             <div className="text-center py-16">
-              <p className="text-gray-400">No featured projects match your filters</p>
+              <p className="text-gray-400">
+                No featured projects match your filters
+              </p>
             </div>
           )}
         </div>
@@ -392,7 +445,7 @@ export default function Projects() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProjects
-                .filter(project => !isLocalProject(project))
+                .filter((project) => !isLocalProject(project))
                 .map((project, idx) => {
                   const repo = project as GitHubRepo;
                   const year = new Date(repo.created_at).getFullYear();
@@ -409,8 +462,19 @@ export default function Projects() {
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div className="text-purple-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M13 10V3L4 14h7v7l9-11h-7z"
+                            />
                           </svg>
                         </div>
                         <div className="flex items-center gap-2">
@@ -418,43 +482,66 @@ export default function Projects() {
                             {year}
                           </span>
                           <span className="text-xs text-gray-400 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                              />
                             </svg>
                             {repo.stargazers_count}
                           </span>
                         </div>
                       </div>
-                      
+
                       <h2 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300 mb-2">
                         {formatRepoName(repo.name)}
                       </h2>
-                      
+
                       <p className="text-gray-400 text-sm mb-4 line-clamp-2">
                         {repo.description ?? "No description provided."}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2 mt-auto">
                         {repo.language && (
                           <span className="bg-purple-900/30 px-3 py-1 rounded-full text-purple-300 text-xs font-medium">
                             {repo.language}
                           </span>
                         )}
-                        {repo.topics && repo.topics.slice(0, 2).map((topic, i) => (
-                          <span
-                            key={i}
-                            className="bg-gray-800 px-3 py-1 rounded-full text-gray-300 text-xs font-medium"
-                          >
-                            {topic}
-                          </span>
-                        ))}
+                        {repo.topics &&
+                          repo.topics.slice(0, 2).map((topic, i) => (
+                            <span
+                              key={i}
+                              className="bg-gray-800 px-3 py-1 rounded-full text-gray-300 text-xs font-medium"
+                            >
+                              {topic}
+                            </span>
+                          ))}
                       </div>
-                      
+
                       <div className="mt-4">
                         <button className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 py-2 px-4 rounded-lg text-white text-sm font-medium transition-all hover:from-purple-700 hover:to-pink-700 hover:shadow-lg">
                           View Details
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            />
                           </svg>
                         </button>
                       </div>
@@ -463,12 +550,16 @@ export default function Projects() {
                 })}
             </div>
           )}
-          
-          {!isLoading && filteredProjects.filter(project => !isLocalProject(project)).length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-400">No GitHub repositories match your filters</p>
-            </div>
-          )}
+
+          {!isLoading &&
+            filteredProjects.filter((project) => !isLocalProject(project))
+              .length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-gray-400">
+                  No GitHub repositories match your filters
+                </p>
+              </div>
+            )}
         </div>
 
         {/* All Projects Section */}
@@ -481,8 +572,12 @@ export default function Projects() {
             <div>
               {/* Group projects by year */}
               {availableYears
-                .filter(year => filteredProjects.some(project => getProjectYear(project) === year))
-                .map(year => (
+                .filter((year) =>
+                  filteredProjects.some(
+                    (project) => getProjectYear(project) === year
+                  )
+                )
+                .map((year) => (
                   <div key={year} className="mb-16">
                     <h2 className="text-2xl font-bold text-purple-400 mb-6 flex items-center">
                       <span className="bg-purple-600/90 px-3 py-1 rounded text-xs font-medium mr-3">
@@ -490,10 +585,10 @@ export default function Projects() {
                       </span>
                       <span>Projects</span>
                     </h2>
-                    
+
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {filteredProjects
-                        .filter(project => getProjectYear(project) === year)
+                        .filter((project) => getProjectYear(project) === year)
                         .map((project, idx) => {
                           if (isLocalProject(project)) {
                             const localProject = project as LocalProject;
@@ -519,20 +614,33 @@ export default function Projects() {
                                   {localProject.description}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
-                                  {localProject.skills.slice(0, 3).map((skill, i) => (
-                                    <span
-                                      key={i}
-                                      className="bg-purple-900/20 px-2 py-1 rounded-full text-purple-300 text-xs"
-                                    >
-                                      {skill}
-                                    </span>
-                                  ))}
+                                  {localProject.skills
+                                    .slice(0, 3)
+                                    .map((skill, i) => (
+                                      <span
+                                        key={i}
+                                        className="bg-purple-900/20 px-2 py-1 rounded-full text-purple-300 text-xs"
+                                      >
+                                        {skill}
+                                      </span>
+                                    ))}
                                 </div>
                                 <div className="mt-4">
                                   <button className="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
                                     View Details
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="h-4 w-4"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 5l7 7-7 7"
+                                      />
                                     </svg>
                                   </button>
                                 </div>
@@ -555,14 +663,26 @@ export default function Projects() {
                                     {formatRepoName(repo.name)}
                                   </h3>
                                   <span className="text-xs text-gray-400 flex items-center gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="h-4 w-4"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                                      />
                                     </svg>
                                     {repo.stargazers_count}
                                   </span>
                                 </div>
                                 <p className="text-gray-400 text-sm mb-3 line-clamp-2">
-                                  {repo.description ?? "No description provided."}
+                                  {repo.description ??
+                                    "No description provided."}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
                                   {repo.language && (
@@ -574,8 +694,19 @@ export default function Projects() {
                                 <div className="mt-4">
                                   <button className="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
                                     View Details
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="h-4 w-4"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 5l7 7-7 7"
+                                      />
                                     </svg>
                                   </button>
                                 </div>
