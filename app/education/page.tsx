@@ -30,6 +30,7 @@ const education = {
     { name: "Software Engineering", icon: <FaLaptopCode /> },
   ],
   achievements: [
+    "Phi Beta Kappa Honor Society Member (2025 - Present)" ,
     "President of Computer Science Club (2023-2024)",
     "Undergraduate Research Assistant - AI Ethics Lab",
     "Hackathon Winner - SF Hacks 2023",
